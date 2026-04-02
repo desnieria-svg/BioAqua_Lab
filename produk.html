@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+<title>Produk</title>
+</head>
+<body>
+
+<nav class="navbar">
+<ul>
+<li><a href="beranda.html">Beranda</a></li>
+<li><a href="produk.html">Produk</a></li>
+<li><a href="pesanan.html">Pesanan</a></li>
+<li><a href="laporan.html">Laporan</a></li>
+<li><a href="kontak.html">Kontak</a></li>
+</ul>
+</nav>
+
+<!-- FILTER -->
+<div class="filter">
+  <button onclick="filterProduk('all')">Semua</button>
+  <button onclick="filterProduk('galon')">Galon</button>
+  <button onclick="filterProduk('botol')">Botol</button>
+</div>
+
+<!-- PRODUK -->
+<section class="produk-container">
+
+<!-- ===== GALON ===== -->
+<div class="card galon">
+  <img src="galon1.png">
+  <h3>Le Mineral Galon 19L</h3>
+  <p>Rp20.000</p>
+  <button onclick="pilihProduk('Le Mineral Galon 19L',20000)">+</button>
+</div>
+
+<div class="card galon">
+  <img src="galon2.png">
+  <h3>Aqua Galon 19L</h3>
+  <p>Rp20.000</p>
+  <button onclick="pilihProduk('Aqua Galon 19L',20000)">+</button>
+</div>
+
+<div class="card galon">
+  <img src="galon3.png">
+  <h3>Cleo Galon 19L</h3>
+  <p>Rp17.000</p>
+  <button onclick="pilihProduk('Cleo Galon 19L',17000)">+</button>
+</div>
+
+<div class="card galon">
+  <img src="galon4.png">
+  <h3>Crystallin Galon 19L</h3>
+  <p>Rp19.000</p>
+  <button onclick="pilihProduk('Crystallin Galon 19L',19000)">+</button>
+</div>
+
+<div class="card galon">
+  <img src="galon5.png">
+  <h3>VIT Galon 19L</h3>
+  <p>Rp18.000</p>
+  <button onclick="pilihProduk('VIT Galon 19L',18000)">+</button>
+</div>
+
+<!-- ===== BOTOL ===== -->
+<div class="card botol">
+  <img src="botol1.png">
+  <h3>Le Mineral Botol 5L</h3>
+  <p>Rp15.000</p>
+  <button onclick="pilihProduk('Le Mineral Botol 5L',15000)">+</button>
+</div>
+
+<div class="card botol">
+  <img src="botol2.png">
+  <h3>Aqua Botol 5L</h3>
+  <p>Rp15.000</p>
+  <button onclick="pilihProduk('Aqua Botol 5L',15000)">+</button>
+</div>
+
+<div class="card botol">
+  <img src="botol3.png">
+  <h3>Cleo Botol 5L</h3>
+  <p>Rp11.000</p>
+  <button onclick="pilihProduk('Cleo Botol 5L',11000)">+</button>
+</div>
+
+<div class="card botol">
+  <img src="botol4.png">
+  <h3>Crystallin Botol 5L</h3>
+  <p>Rp11.000</p>
+  <button onclick="pilihProduk('Crystallin Botol 5L',11000)">+</button>
+</div>
+
+<div class="card botol">
+  <img src="botol5.png">
+  <h3>VIT Botol 5L</h3>
+  <p>Rp10.000</p>
+  <button onclick="pilihProduk('VIT Botol 5L',10000)">+</button>
+</div>
+
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+<title>Laporan</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<nav class="navbar">
+<ul>
+<li><a href="beranda.html">Beranda</a></li>
+<li><a href="produk.html">Produk</a></li>
+<li><a href="pesanan.html">Pesanan</a></li>
+<li><a href="laporan.html">Laporan</a></li>
+<li><a href="kontak.html">Kontak</a></li>
+</ul>
+</nav>
+
+<h2 align="center">Laporan Penjualan</h2>
+
+<table>
+<tr>
+<th>No</th>
+<th>Nama</th>
+<th>Tanggal</th>
+<th>Produk</th>
+<th>Jumlah</th>
+<th>Harga</th>
+<th>Alamat</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>Budi</td>
+<td>2026-03-01</td>
+<td>Galon Aqua</td>
+<td>2</td>
+<td>40000</td>
+<td>Jember</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Siti</td>
+<td>2026-03-02</td>
+<td>Botol Le Mineral</td>
+<td>3</td>
+<td>30000</td>
+<td>Bondowoso</td>
+</tr>
+
+</table>
+
+<canvas id="chart"></canvas>
+
+<script src="script.js"></script>
+
+<script>
+const ctx = document.getElementById('chart');
+
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Jan', 'Feb', 'Mar'],
+    datasets: [{
+      label: 'Penjualan',
+      data: [10, 20, 30]
+    }]
+  }
+});
+</script>
+
+</body>
+</html>
