@@ -1,87 +1,93 @@
-// ================= FILTER PRODUK =================
-function filterProduk(kategori) {
-  let cards = document.querySelectorAll(".card");
+let produk=[
+{nama:"Produk 1",harga:5000,gambar:"produk1.jpg"},
+{nama:"Produk 2",harga:10000,gambar:"produk2.jpg"},
+{nama:"Produk 3",harga:15000,gambar:"produk3.jpg"}
+]
 
-  cards.forEach(card => {
-    if (kategori === "all") {
-      card.style.display = "block";
-    } else {
-      if (card.classList.contains(kategori)) {
-        card.style.display = "block";
-      } else {
-        card.style.display = "none";
-      }
-    }
-  });
+let penjualan={}
+let pilih=null
+let isAdmin=false
+
+function render(){
+let el=document.getElementById("produkList")
+el.innerHTML=""
+
+produk.forEach((p,i)=>{
+el.innerHTML+=`
+<div class="card">
+<img src="${p.gambar}">
+<div class="card-body">
+<h3>${p.nama}</h3>
+<p>Rp ${p.harga}</p>
+${isAdmin?"":`<button onclick="openBeli(${i})">Beli</button>`}
+</div>
+</div>`
+})
+}
+render()
+
+function openLogin(){
+document.getElementById("loginModal").classList.add("show")
+}
+function closeLogin(){
+document.getElementById("loginModal").classList.remove("show")
 }
 
-// ================= TOMBOL TAMBAH PRODUK =================
-function pilihProduk(nama, harga) {
-  let data = JSON.parse(localStorage.getItem("pesanan")) || [];
-
-  data.push({
-    nama: "Pembeli",
-    tanggal: new Date().toISOString().split('T')[0],
-    produk: nama,
-    jumlah: 1,
-    harga: harga,
-    alamat: "-"
-  });
-
-  localStorage.setItem("pesanan", JSON.stringify(data));
-
-  alert("Pesanan ditambahkan!");
+function login(){
+if(user.value==="admin" && pass.value==="123"){
+isAdmin=true
+panelAdmin.style.display="block"
+closeLogin()
+render()
+}
 }
 
-// ================= LOAD DATA KE TABEL =================
-window.onload = function() {
-  let data = JSON.parse(localStorage.getItem("pesanan")) || [];
+function openBeli(i){
+pilih=i
+document.getElementById("beliModal").classList.add("show")
+}
 
-  // ===== PESANAN =====
-  let tabel = document.getElementById("tabelPesanan");
-  if (tabel) {
-    data.forEach((item, index) => {
-      let row = tabel.insertRow();
+function closeBeli(){
+document.getElementById("beliModal").classList.remove("show")
+}
 
-      row.insertCell(0).innerText = index + 1;
-      row.insertCell(1).innerText = item.nama;
-      row.insertCell(2).innerText = item.tanggal;
-      row.insertCell(3).innerText = item.produk;
-      row.insertCell(4).innerText = item.jumlah;
-      row.insertCell(5).innerText = item.harga;
-    });
-  }
+function beli(){
+let nama=document.getElementById("namaPembeli").value
+let hp=document.getElementById("nohp").value
+let alamat=document.getElementById("alamat").value
+let jumlah=document.getElementById("jumlah").value
+let metode=document.getElementById("metode").value
 
-  // ===== LAPORAN =====
-  let laporan = document.getElementById("laporanTable");
-  if (laporan) {
-    data.forEach((item, index) => {
-      let row = laporan.insertRow();
+if(!nama||!hp||!alamat||!jumlah){
+alert("Isi semua data!")
+return
+}
 
-      row.insertCell(0).innerText = index + 1;
-      row.insertCell(1).innerText = item.nama;
-      row.insertCell(2).innerText = item.tanggal;
-      row.insertCell(3).innerText = item.produk;
-      row.insertCell(4).innerText = item.jumlah;
-      row.insertCell(5).innerText = item.harga;
-      row.insertCell(6).innerText = item.alamat;
-    });
-  }
+let p=produk[pilih]
 
-  // ===== CHART =====
-  let canvas = document.getElementById("chart");
-  if (canvas) {
-    let ctx = canvas.getContext("2d");
+penjualan[p.nama]=(penjualan[p.nama]||0)+parseInt(jumlah)
 
-    new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: ["Jan", "Feb", "Mar"],
-        datasets: [{
-          label: "Penjualan",
-          data: [10, 20, 30]
-        }]
-      }
-    });
-  }
-};
+let pesan=`Halo Admin BioAqua
+Nama: ${nama}
+No HP: ${hp}
+Alamat: ${alamat}
+
+Pesan:
+${p.nama} x${jumlah}
+
+Metode: ${metode}`
+
+// 🔥 GANTI NOMOR ADMIN
+window.open(`https://wa.me/628XXXXXXXXXX?text=${encodeURIComponent(pesan)}`)
+
+closeBeli()
+}
+
+function tambahProduk(){
+produk.push({
+nama:nama.value,
+harga:harga.value,
+gambar:gambar.value
+})
+render()
+}

@@ -1,27 +1,97 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>BioAqua Lab</title>
+
 <link rel="stylesheet" href="style.css">
-<title>Beranda</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
 <header class="header">
-  <div class="header-content">
-    <img src="logo.png" class="logo">
-    <h1>Selamat Datang di WaterMineral 💧</h1>
-  </div>
+<div class="overlay"></div>
+
+<div class="header-content">
+<img src="logo.png" class="logo">
+<h1>BioAqua Lab</h1>
+<p>Pure Water • Smart Living</p>
+</div>
 </header>
 
 <nav class="navbar">
-  <ul>
-    <li><a href="beranda.html">Beranda</a></li>
-    <li><a href="produk.html">Produk</a></li>
-    <li><a href="pesanan.html">Pesanan</a></li>
-    <li><a href="laporan.html">Laporan</a></li>
-    <li><a href="kontak.html">Kontak</a></li>
-  </ul>
+<h2>BioAqua</h2>
+<div class="login-text" onclick="openLogin()">Login</div>
 </nav>
 
+<h2 class="title-section">Produk Premium</h2>
+<div id="produkList" class="produk"></div>
+
+<!-- LOGIN -->
+<div id="loginModal" class="modal">
+<div class="modal-content">
+<span onclick="closeLogin()" class="close">&times;</span>
+<h2>Login Admin</h2>
+<input id="user" placeholder="Username">
+<input id="pass" type="password" placeholder="Password">
+<button onclick="login()">Masuk</button>
+</div>
+</div>
+
+<!-- FORM BELI -->
+<div id="beliModal" class="modal">
+<div class="modal-content">
+<span onclick="closeBeli()" class="close">&times;</span>
+
+<h2>Form Pembelian</h2>
+
+<input id="namaPembeli" placeholder="Nama Lengkap">
+<input id="nohp" placeholder="Nomor HP">
+<textarea id="alamat" placeholder="Alamat Lengkap"></textarea>
+
+<input id="jumlah" type="number" placeholder="Jumlah Produk">
+
+<select id="metode">
+<option>Transfer Bank</option>
+<option>COD</option>
+<option>E-Wallet</option>
+</select>
+
+<button onclick="beli()">Kirim ke WhatsApp</button>
+
+</div>
+</div>
+
+<!-- ADMIN -->
+<section id="panelAdmin" class="dashboard">
+<h2>Dashboard Admin</h2>
+
+<div class="box">
+<h3>Total Pendapatan</h3>
+<div id="total"></div>
+</div>
+
+<div class="box">
+<h3>Tambah Produk</h3>
+<input id="nama" placeholder="Nama">
+<input id="harga" placeholder="Harga">
+<input id="gambar" placeholder="Nama file gambar">
+<button onclick="tambahProduk()">Tambah</button>
+</div>
+
+<div class="box">
+<h3>Data Penjualan</h3>
+<table id="tabel"></table>
+</div>
+
+<div class="box">
+<h3>Statistik</h3>
+<canvas id="chart"></canvas>
+</div>
+
+</section>
+
+<script src="script.js"></script>
 </body>
 </html>
