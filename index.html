@@ -1,97 +1,214 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>BioAqua Lab</title>
-
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioAqua Lab | Sistem Manajemen Air Mineral</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
 
-<header class="header">
-<div class="overlay"></div>
+    <div class="water-bg-overlay"></div>
 
-<div class="header-content">
-<img src="logo.png" class="logo">
-<h1>BioAqua Lab</h1>
-<p>Pure Water • Smart Living</p>
-</div>
-</header>
+    <div class="admin-access-btn" onclick="openModal('loginModal')">
+        <i class="fas fa-user-cog"></i> <span>Admin</span>
+    </div>
 
-<nav class="navbar">
-<h2>BioAqua</h2>
-<div class="login-text" onclick="openLogin()">Login</div>
-</nav>
+    <header class="navbar">
+        <div class="container nav-flex">
+            <div class="logo">
+                <img src="logo.png" alt="BioAqua Logo">
+                <div class="logo-text">Bio<span>Aqua</span> <small>Lab</small></div>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#products">Produk</a></li>
+                    <li><a href="#footer">Hubungi Kami</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-<h2 class="title-section">Produk Premium</h2>
-<div id="produkList" class="produk"></div>
+    <main id="userView">
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-text">
+                        <span class="tag">#1 Pilihan Keluarga</span>
+                        <h1>Kemurnian Air <br>Untuk <span>Masa Depan</span></h1>
+                        <p>Kami menghadirkan air mineral kualitas premium yang diproses dengan teknologi filtrasi terbaru langsung ke rumah Anda.</p>
+                        <a href="#products" class="btn-main">Pesan Sekarang <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- LOGIN -->
-<div id="loginModal" class="modal">
-<div class="modal-content">
-<span onclick="closeLogin()" class="close">&times;</span>
-<h2>Login Admin</h2>
-<input id="user" placeholder="Username">
-<input id="pass" type="password" placeholder="Password">
-<button onclick="login()">Masuk</button>
-</div>
-</div>
+        <section id="products" class="products-section container">
+            <div class="section-title">
+                <h2>Etalase Produk</h2>
+                <div class="line"></div>
+            </div>
+            <div class="product-grid">
+                <div class="p-card">
+                    <div class="p-img"><img src="produk2.jpg" alt="Galon"></div>
+                    <div class="p-desc">
+                        <h3>BioAqua Galon 19L</h3>
+                        <p>Segar & Higienis</p>
+                        <div class="p-price">Rp 20.000</div>
+                        <button class="btn-order" onclick="openOrderModal('Galon 19L', 20000)">Pesan via WA</button>
+                    </div>
+                </div>
+                <div class="p-card">
+                    <div class="p-img"><img src="produk1.jpg" alt="Botol"></div>
+                    <div class="p-desc">
+                        <h3>BioAqua Botol 600ml</h3>
+                        <p>Praktis & Sehat</p>
+                        <div class="p-price">Rp 5.000</div>
+                        <button class="btn-order" onclick="openOrderModal('Botol 600ml', 5000)">Pesan via WA</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-<!-- FORM BELI -->
-<div id="beliModal" class="modal">
-<div class="modal-content">
-<span onclick="closeBeli()" class="close">&times;</span>
+    <main id="adminView" class="hidden">
+        <section class="admin-container container">
+            <div class="admin-header">
+                <h2><i class="fas fa-chart-line"></i> Dashboard Admin</h2>
+                <button onclick="logout()" class="btn-exit">Keluar</button>
+            </div>
 
-<h2>Form Pembelian</h2>
+            <div class="stats-row">
+                <div class="stat-card">
+                    <i class="fas fa-wallet"></i>
+                    <div class="stat-info">
+                        <span>Total Pendapatan</span>
+                        <h4>Rp 5.420.000</h4>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-shopping-cart"></i>
+                    <div class="stat-info">
+                        <span>Unit Terjual</span>
+                        <h4>1.240 Pcs</h4>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <div class="stat-info">
+                        <span>Pelanggan Baru</span>
+                        <h4>48 Orang</h4>
+                    </div>
+                </div>
+            </div>
 
-<input id="namaPembeli" placeholder="Nama Lengkap">
-<input id="nohp" placeholder="Nomor HP">
-<textarea id="alamat" placeholder="Alamat Lengkap"></textarea>
+            <div class="admin-main-grid">
+                <div class="admin-box chart-box">
+                    <h3>Grafik Penjualan Mingguan</h3>
+                    <div class="bar-chart">
+                        <div class="bar-item" style="--h: 40%"><span>Sen</span></div>
+                        <div class="bar-item" style="--h: 70%"><span>Sel</span></div>
+                        <div class="bar-item" style="--h: 90%"><span>Rab</span></div>
+                        <div class="bar-item" style="--h: 60%"><span>Kam</span></div>
+                        <div class="bar-item" style="--h: 85%"><span>Jum</span></div>
+                    </div>
+                </div>
 
-<input id="jumlah" type="number" placeholder="Jumlah Produk">
+                <div class="admin-box">
+                    <h3>Tambah Produk Baru</h3>
+                    <form class="admin-form">
+                        <input type="text" placeholder="Nama Produk">
+                        <input type="number" placeholder="Harga Jual">
+                        <input type="file">
+                        <button type="button" class="btn-main">Update Etalase</button>
+                    </form>
+                </div>
 
-<select id="metode">
-<option>Transfer Bank</option>
-<option>COD</option>
-<option>E-Wallet</option>
-</select>
+                <div class="admin-box full-width">
+                    <h3>Laporan Penjualan Terkini</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID Pesanan</th>
+                                    <th>Pelanggan</th>
+                                    <th>Produk</th>
+                                    <th>Qty</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>#BQ001</td><td>Reza</td><td>Galon 19L</td><td>2</td><td>Rp 40.000</td><td><span class="st-done">Selesai</span></td></tr>
+                                <tr><td>#BQ002</td><td>Santi</td><td>Botol 600ml</td><td>10</td><td>Rp 50.000</td><td><span class="st-pending">Proses</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-<button onclick="beli()">Kirim ke WhatsApp</button>
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h3>Otoritas Admin</h3>
+            <form onsubmit="handleLogin(event)">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit" class="btn-main w-full">Login</button>
+            </form>
+        </div>
+    </div>
 
-</div>
-</div>
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('orderModal')">&times;</span>
+            <h3>Konfirmasi Pesanan</h3>
+            <p id="targetProd" class="highlight-text"></p>
+            <form onsubmit="sendToWA(event)">
+                <input type="hidden" id="pName">
+                <input type="text" id="bName" placeholder="Nama Anda" required>
+                <input type="text" id="bAddr" placeholder="Alamat Lengkap" required>
+                <input type="number" id="bQty" value="1" min="1" required>
+                <button type="submit" class="btn-wa w-full"><i class="fab fa-whatsapp"></i> Pesan Sekarang</button>
+            </form>
+        </div>
+    </div>
 
-<!-- ADMIN -->
-<section id="panelAdmin" class="dashboard">
-<h2>Dashboard Admin</h2>
+    <footer id="footer" class="footer">
+        <div class="container footer-grid">
+            <div class="f-about">
+                <div class="logo">Bio<span>Aqua</span></div>
+                <p>Menghadirkan kesegaran alami dengan standar kebersihan tertinggi untuk kesehatan Anda.</p>
+                <div class="f-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+            <div class="f-links">
+                <h4>Menu</h4>
+                <ul>
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#products">Produk</a></li>
+                    <li><a href="#">Tentang Kami</a></li>
+                </ul>
+            </div>
+            <div class="f-contact">
+                <h4>Hubungi Kami</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Jember, Jawa Timur, Indonesia</p>
+                <p><i class="fas fa-phone"></i> +62 812 3456 7890</p>
+                <p><i class="fas fa-envelope"></i> bioaqua@gmail.com</p>
+            </div>
+        </div>
+        <div class="f-bottom">
+            <p>&copy; 2026 BioAqua Lab Information System. All Rights Reserved.</p>
+        </div>
+    </footer>
 
-<div class="box">
-<h3>Total Pendapatan</h3>
-<div id="total"></div>
-</div>
-
-<div class="box">
-<h3>Tambah Produk</h3>
-<input id="nama" placeholder="Nama">
-<input id="harga" placeholder="Harga">
-<input id="gambar" placeholder="Nama file gambar">
-<button onclick="tambahProduk()">Tambah</button>
-</div>
-
-<div class="box">
-<h3>Data Penjualan</h3>
-<table id="tabel"></table>
-</div>
-
-<div class="box">
-<h3>Statistik</h3>
-<canvas id="chart"></canvas>
-</div>
-
-</section>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

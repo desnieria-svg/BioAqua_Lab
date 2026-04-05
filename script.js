@@ -1,93 +1,52 @@
-let produk=[
-{nama:"Produk 1",harga:5000,gambar:"produk1.jpg"},
-{nama:"Produk 2",harga:10000,gambar:"produk2.jpg"},
-{nama:"Produk 3",harga:15000,gambar:"produk3.jpg"}
-]
+// Pengaturan Admin & WA
+const WA_PHONE = "6281234567890"; // GANTI NOMOR ANDA
 
-let penjualan={}
-let pilih=null
-let isAdmin=false
+// Fungsi Modal
+function openModal(id) { document.getElementById(id).style.display = 'block'; }
+function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-function render(){
-let el=document.getElementById("produkList")
-el.innerHTML=""
-
-produk.forEach((p,i)=>{
-el.innerHTML+=`
-<div class="card">
-<img src="${p.gambar}">
-<div class="card-body">
-<h3>${p.nama}</h3>
-<p>Rp ${p.harga}</p>
-${isAdmin?"":`<button onclick="openBeli(${i})">Beli</button>`}
-</div>
-</div>`
-})
-}
-render()
-
-function openLogin(){
-document.getElementById("loginModal").classList.add("show")
-}
-function closeLogin(){
-document.getElementById("loginModal").classList.remove("show")
+// Order Modal (Pembeli)
+function openOrderModal(name, price) {
+    openModal('orderModal');
+    document.getElementById('pName').value = name;
+    document.getElementById('targetProd').innerText = `Produk: ${name} (Rp ${price.toLocaleString()})`;
 }
 
-function login(){
-if(user.value==="admin" && pass.value==="123"){
-isAdmin=true
-panelAdmin.style.display="block"
-closeLogin()
-render()
-}
-}
+// WA Function
+function sendToWA(e) {
+    e.preventDefault();
+    const name = document.getElementById('bName').value;
+    const addr = document.getElementById('bAddr').value;
+    const qty = document.getElementById('bQty').value;
+    const prod = document.getElementById('pName').value;
 
-function openBeli(i){
-pilih=i
-document.getElementById("beliModal").classList.add("show")
-}
-
-function closeBeli(){
-document.getElementById("beliModal").classList.remove("show")
+    const message = `*BIOAQUA LAB - PESANAN BARU*%0A---------------------------%0A*Produk:* ${prod}%0A*Nama:* ${name}%0A*Jumlah:* ${qty}%0A*Alamat:* ${addr}%0A---------------------------%0ATerima kasih.`;
+    window.open(`https://wa.me/${WA_PHONE}?text=${message}`, '_blank');
+    closeModal('orderModal');
 }
 
-function beli(){
-let nama=document.getElementById("namaPembeli").value
-let hp=document.getElementById("nohp").value
-let alamat=document.getElementById("alamat").value
-let jumlah=document.getElementById("jumlah").value
-let metode=document.getElementById("metode").value
+// Login Admin
+function handleLogin(e) {
+    e.preventDefault();
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
 
-if(!nama||!hp||!alamat||!jumlah){
-alert("Isi semua data!")
-return
+    if(user === "admin" && pass === "12345") {
+        document.getElementById('userView').classList.add('hidden');
+        document.getElementById('adminView').classList.remove('hidden');
+        document.querySelector('.admin-access-btn').classList.add('hidden');
+        closeModal('loginModal');
+        window.scrollTo(0,0);
+    } else {
+        alert("Akses Gagal: Username atau Password Salah!");
+    }
 }
 
-let p=produk[pilih]
+function logout() { location.reload(); }
 
-penjualan[p.nama]=(penjualan[p.nama]||0)+parseInt(jumlah)
-
-let pesan=`Halo Admin BioAqua
-Nama: ${nama}
-No HP: ${hp}
-Alamat: ${alamat}
-
-Pesan:
-${p.nama} x${jumlah}
-
-Metode: ${metode}`
-
-// 🔥 GANTI NOMOR ADMIN
-window.open(`https://wa.me/628XXXXXXXXXX?text=${encodeURIComponent(pesan)}`)
-
-closeBeli()
-}
-
-function tambahProduk(){
-produk.push({
-nama:nama.value,
-harga:harga.value,
-gambar:gambar.value
-})
-render()
+// Tutup modal jika klik di luar area
+window.onclick = function(e) {
+    if (e.target.className === 'modal') {
+        e.target.style.display = "none";
+    }
 }
